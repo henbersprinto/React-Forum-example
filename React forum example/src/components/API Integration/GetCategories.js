@@ -1,18 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import { Link } from "react-router-dom";
+import {categoryReducer, getCategoriesAsync} from '../reducers/categoryReducer'
 
-const sandbox = 'HenningsAPIv2' //Byt denna mot er egna sandbox
-const getCategoriesUrl = `https://forum-api-jkrop.ondigitalocean.app/sandbox/${sandbox}/category`;
+
+// const sandbox = 'HenningsAPIv2' //Byt denna mot er egna sandbox
+// const getCategoriesUrl = `https://forum-api-jkrop.ondigitalocean.app/sandbox/${sandbox}/category`;
 
 const GetCategories = () => {
 
-    const [categoriesState, setCategoriesState] = useState([]);
+    // const [categoriesState, setCategoriesState] = useState([]);
+    const initialState = {
+        "categories": []
+    }
+    const [categoriesState, dispatch] = useReducer(categoryReducer, initialState);
     
     useEffect(() => {
-        if(categoriesState.length === 0) {
-            fetch(getCategoriesUrl).then(res => res.json().then(data => setCategoriesState(data)));
-        }
-    })
+            getCategoriesAsync(dispatch);
+    },[])
+
+    // useEffect(() => {
+    //     fetch(getCategoriesUrl).then(res => res.json().then(data => setCategoriesState(data)));
+    // }, [])
 
     const listStyle = {
         display: "inline-table",
@@ -27,7 +35,8 @@ const GetCategories = () => {
             <h2>Vilka kategories finns i API:et?</h2>
             <div>
                 <ul style={listStyle}>
-                    {categoriesState.map( category => (
+                    {/* {categoriesState.map( category => ( */}
+                    {categoriesState.categories.map( category => (
                     <li>
                         <p>{category.name}</p>
                         <Link to={`/category/${category._id}/thread`}>

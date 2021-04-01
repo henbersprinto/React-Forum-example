@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useReducer } from 'react'
+import {categoryReducer, getCategoriesAsync} from '../reducers/categoryReducer'
+
 
 const sandbox = 'HenningsAPIv2' //Byt denna mot er egna sandbox
 const postCategoryURL = `https://forum-api-jkrop.ondigitalocean.app/sandbox/${sandbox}/category`;

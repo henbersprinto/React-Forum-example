@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import PostLike from './PostLike';
 import PostThread from './PostThread'
+import {Link} from 'react-router-dom'
+import PostComment from './PostComment'
 
 const baseURL = `https://forum-api-jkrop.ondigitalocean.app`;
 
@@ -33,6 +35,8 @@ const GetThreads = () => {
                 {threads.map( t => (
                 <li>
                     <p>{t.title}</p>
+                    <p>{t.content}</p>
+                    <PostComment id={t._id}/>
                     <PostLike id={t._id} type="THREAD"></PostLike>
                 </li>
                 ))}

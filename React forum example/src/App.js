@@ -37,7 +37,8 @@ function App() {
                 <Route exact path="/categories" component={GetCategories}/>
                 <Route exact path="/postcategory" component={PostCategory}/>
                 <Route exact path="/category/:categoryId/thread" component={GetThreads}/>
-                <Redirect to="/" />
+                <Route exact path="/" />
+                {/* <Redirect to="/thread/:threadId/newcomment" component={PostComment}/> */}
             </Switch>
         </Router>
     </div>
